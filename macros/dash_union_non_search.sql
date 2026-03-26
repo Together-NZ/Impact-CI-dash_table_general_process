@@ -1,4 +1,4 @@
-{% macro dash_union_non_search(source_name, table_name) %}
+{% macro dash_union_non_search(source_name, table_name,sub_brands) %}
 
 (SELECT 
 EXTRACT(MONTH FROM date) AS segments_month,
@@ -42,7 +42,6 @@ SAFE_CAST(segments_slot AS STRING) AS segments_slot,
 SAFE_CAST(_LATEST_DATE AS STRING) AS _LATEST_DATE,
 SAFE_CAST(_DATA_DATE AS STRING) AS _DATA_DATE,
 SAFE_CAST(media_cost AS FLOAT64) AS media_cost,
-SAFE_CAST(sub_brands AS STRING) AS sub_brands,
 SAFE_CAST(clicks AS INT64) AS clicks,
 SAFE_CAST(funnel as string) as funnel,
 SAFE_CAST(impressions AS FLOAT64) AS impressions,
@@ -61,5 +60,7 @@ SAFE_CAST(video_25_completion AS FLOAT64) AS video_25_completion,
 SAFE_CAST(video_75_completion AS FLOAT64) AS video_75_completion,
 SAFE_CAST(video_views AS INT64) AS video_views,
 SAFE_CAST(campaign_descr AS STRING) AS campaign_descr,
-SAFE_CAST(creative_descr AS STRING) AS creative_descr  FROM {{ source(source_name, table_name) }} )
+SAFE_CAST(creative_descr AS STRING) AS creative_descr,
+CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands
+  FROM {{ source(source_name, table_name) }} )
 {% endmacro %}
