@@ -100,7 +100,8 @@ WHEN LOWER(campaign_name) like '%gi%' or lower(campaign_name) like '%general ins
 or lower(campaign_name) like '%car%' or lower(campaign_name) like '%home%' or lower(campaign_name) like '%content%'
 THEN 'General Insurance'
 ELSE 'Wealth'
-END AS sub_brands
+END AS sub_brands,
+
 
  FROM campaign_base camb LEFT JOIN deduplicate_raw ON LOWER(deduplicate_raw.campaign_name_raw) = LOWER(camb.campaign_name_raw)
 
