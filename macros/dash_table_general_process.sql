@@ -88,12 +88,19 @@ CASE WHEN
        THEN 'DG'
        else 'OTHER'
 END as media_format,
-CASE WHEN 
-       EXISTS(SELECT 1 FROM UNNEST(SPLIT(campaign_name,'_')) as a
-       WHERE LOWER(a) IN UNNEST(ARRAY['consideration','awareness','intent']))
-       THEN (SELECT X FROM UNNEST(SPLIT(campaign_name,'_') ) as X WHERE LOWER(X) IN UNNEST(['consideration','awareness','intent'])
-       LIMIT 1)
-       else 'OTHER'
+CASE
+  WHEN EXISTS (
+    SELECT 1
+    FROM UNNEST(SPLIT(campaign_name, '_')) AS a
+    WHERE LOWER(a) IN UNNEST(['consideration', 'awareness', 'intent'])
+  )
+  THEN (
+    SELECT UPPER(x)
+    FROM UNNEST(SPLIT(campaign_name, '_')) AS x
+    WHERE LOWER(x) IN UNNEST(['consideration', 'awareness', 'intent'])
+    LIMIT 1
+  )
+  ELSE 'OTHER'
 END AS funnel,
 CASE 
 WHEN LOWER(campaign_name) like '%gi%' or lower(campaign_name) like '%general insurance%' 
