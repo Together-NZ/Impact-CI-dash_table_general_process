@@ -12,7 +12,7 @@ CASE WHEN
        END as media_format,
 CASE WHEN lower(publisher) = 'demand gen' THEN 'Demand Gen'
 ELSE 'Paid Search' END as channel,
-{{ funnel }} as funnel,
+'{{ funnel }}' as funnel,
 
 CASE WHEN LOWER(publisher) != 'demand gen' THEN campaign_name 
 ELSE 
