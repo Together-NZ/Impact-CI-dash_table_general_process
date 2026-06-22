@@ -12,8 +12,11 @@ CASE WHEN
        END as media_format,
 CASE WHEN lower(publisher) = 'demand gen' THEN 'Demand Gen'
 ELSE 'Paid Search' END as channel,
-'{{ funnel }}' as funnel,
-
+CASE
+  WHEN STARTS_WITH(campaign_name, 'Funnel - ') THEN
+    TRIM(SPLIT(SUBSTR(campaign_name, 10), ' ')[SAFE_OFFSET(0)])
+  ELSE '{{ funnel }}'
+END AS funnel,
 CASE WHEN LOWER(publisher) != 'demand gen' THEN campaign_name 
 ELSE 
 CASE WHEN ARRAY_LENGTH(SPLIT(campaign_name,'_'))>=2 
