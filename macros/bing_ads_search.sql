@@ -8,7 +8,6 @@ SELECT
     impressions,
     campaign_name,
     campaign_id,
-    publisher,
-    'Bing Ads' AS platform
+    publisher
 FROM {{ source(source_name, table_name) }}
 {% endmacro %}

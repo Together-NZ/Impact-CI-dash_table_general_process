@@ -12,7 +12,6 @@
            
            campaign_name,publisher, campaign_descr, 
            creative_descr AS creative_descr, -- Convert array to string
-           date,null as conversions,
-           'HiveStack' AS platform
+           date,null as conversions
     FROM {{ source(source_name, table_name) }}
 {% endmacro %}

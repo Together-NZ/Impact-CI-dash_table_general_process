@@ -17,7 +17,6 @@
         campaign_descr,
         creative_descr,
         DATE(date) AS date,
-        SAFE_CAST(conversions AS FLOAT64) AS conversions,
-        'Outbrain' AS platform
+        SAFE_CAST(conversions AS FLOAT64) AS conversions
     FROM {{ source(source_name, table_name) }}
 {% endmacro %}
