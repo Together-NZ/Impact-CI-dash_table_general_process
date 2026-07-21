@@ -8,7 +8,8 @@ SELECT
     SUM(impressions) AS impressions,
     campaign_name,
     campaign_id,
-    publisher
+    publisher,
+    'Google Ads' AS platform
 FROM {{ source(source_name, table_name) }}
 GROUP BY campaign_name, campaign_id, device, publisher, date
 {% endmacro %}

@@ -5,6 +5,7 @@
         CAST(video_50_completion AS INT64) AS video_50_completion,
         CAST(video_75_completion AS INT64) AS video_75_completion,
         CAST(video_25_completion AS INT64) AS video_views,
-    campaign_name,  publisher, campaign_descr, creative_descr, date(date) as date,null as conversions
+    campaign_name,  publisher, campaign_descr, creative_descr, date(date) as date,null as conversions,
+    'Reddit' AS platform
 FROM {{ source(source_name, table_name) }}
 {% endmacro %}
