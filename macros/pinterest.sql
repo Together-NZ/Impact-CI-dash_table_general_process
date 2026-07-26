@@ -1,4 +1,4 @@
-{% macro outbrain(source_name, table_name) %}
+{% macro pinterest(source_name, table_name) %}
     SELECT
         SAFE_CAST(media_cost AS FLOAT64) AS media_cost,
         SAFE_CAST(impressions AS INT64) AS impressions,
