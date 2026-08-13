@@ -26,6 +26,6 @@ SAFE_CAST(campaign_descr AS STRING) AS campaign_descr,
 SAFE_CAST(creative_descr AS STRING) AS creative_descr,
 SAFE_CAST(platform AS STRING) AS platform,
 CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands
-FROM {{ source(source_name, table_name) }} )
-WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%'
+FROM {{ source(source_name, table_name) }} 
+WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%')
 {% endmacro %}

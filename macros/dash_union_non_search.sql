@@ -27,7 +27,7 @@ SAFE_CAST(campaign_descr AS STRING) AS campaign_descr,
 SAFE_CAST(creative_descr AS STRING) AS creative_descr,
 SAFE_CAST(platform AS STRING) AS platform,
 CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands
-  FROM {{ source(source_name, table_name) }} )
+  FROM {{ source(source_name, table_name) }} 
 WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%' AND campaign_name NOT IN (
   'CON030 - MULTI - Contact - Broadband - Product - Broadband Bundle Hero - 040520 - 150620',
   'CONTACT_0000_CON_TIKTOK CONTENT_JAN_2025_ELECTRICITY_',
@@ -40,5 +40,6 @@ WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%' AND campaign_na
   'CONTACT_0166_CON_MOBILE Q4_APR_2025_MOBILE_',
   'CONTACT_0167_CON_BROADBAND Q4_APR_2025_BROADBAND_',
   'CONTACT_0167_CON_MOBILE Q4_APR_2025_MOBILE_',
-)
+))
+
 {% endmacro %}
