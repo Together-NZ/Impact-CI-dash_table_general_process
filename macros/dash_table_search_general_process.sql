@@ -1,4 +1,5 @@
 {% macro dash_table_search_general_process(funnel) %}
+WITH dash_table_search AS (
 SELECT *,
 CASE WHEN 
  
@@ -36,5 +37,10 @@ null as video_views,
 null as campaign_descr,
 
 null as creative_descr
-from dash_table
+from dash_table),
+final_deduplication AS (
+SELECT *, ROW_NUMBER() OVER (PARTITION BY campaign_name,creative_name,date ) AS row_num FROM dash_table_search 
+
+)
+SELECT * EXCEPT(row_num) FROM final_deduplication
 {% endmacro %}
