@@ -1,5 +1,5 @@
 {% macro dash_table_search_general_process(funnel) %}
-WITH dash_table_search AS (
+dash_table_search AS (
 SELECT *,
 CASE WHEN 
  
