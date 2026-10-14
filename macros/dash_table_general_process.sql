@@ -87,6 +87,7 @@ CASE WHEN
        WHEN EXISTS(SELECT 1 FROM UNNEST(SPLIT(campaign_name,'_'))  as a
        WHERE lower(a) LIKE '%demand gen%')
        THEN 'DG'
+       WHEN LOWER(campaign_name) LIKE '%youtube%' THEN 'YT'
        else 'OTHER'
 END as media_format,
 CASE

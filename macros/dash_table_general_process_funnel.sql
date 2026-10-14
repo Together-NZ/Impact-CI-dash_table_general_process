@@ -98,6 +98,7 @@ CASE WHEN
        WHERE lower(a) LIKE '%demand gen%')
        THEN 'DG'
        WHEN lower(campaign_name) like '%google%' and (lower(campaign_name) like '%native%' or lower(campaign_name) like '%demand gen%') then 'DEMAND GEN'
+       WHEN LOWER(campaign_name) LIKE '%youtube%' THEN 'YT'
        else 'OTHER'
 END as media_format,
 CASE
