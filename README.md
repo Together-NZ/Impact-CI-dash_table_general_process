@@ -35,3 +35,23 @@ The input must contain `publisher` and must not already contain `channel`.
 `exclude_columns` optionally removes additional input columns. Client campaign
 filters can remain after the macro call as a `WHERE` clause. For testing, pass a
 fixture relation using `mapping_relation` instead of the default shared table.
+
+## Installing a release
+
+Use a release tag in your client's `packages.yml`, then run `dbt deps`:
+
+```yaml
+packages:
+  - git: https://github.com/Together-NZ/Impact-CI-dash_table_general_process.git
+    revision: v2.0.3
+```
+
+Commit the generated `package-lock.yml` as well. dbt records the resolved commit
+there automatically; client configuration only needs the release tag.
+
+### v2.0.3
+
+Preserves dashboard fact rows by removing the final deduplication on campaign,
+creative name, and date. Includes the shared publisher/channel fallback and
+YouTube media format classification fixes. The search processing macro retains
+its existing behavior.
