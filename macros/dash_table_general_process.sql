@@ -113,8 +113,6 @@ END AS sub_brands,
 
 
  FROM campaign_base camb LEFT JOIN deduplicate_raw ON LOWER(deduplicate_raw.campaign_name_raw) = LOWER(camb.campaign_name_raw)
-),final_deduplication AS (
-       SELECT * ,ROW_NUMBER() OVER (PARTITION BY campaign_name,creative_name,date) AS row_num FROM dash_table_final
 )
-SELECT * FROM final_deduplication WHERE row_num=1
+SELECT * FROM dash_table_final
 {% endmacro %}
