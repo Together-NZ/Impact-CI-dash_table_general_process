@@ -18,6 +18,7 @@
         creative_descr,
         DATE(date) AS date,
         conversions,
-        'ChatGPT' AS platform
+        'ChatGPT' AS platform,
+           CAST(NULL AS INT64) AS follows
     FROM {{ source(source_name, table_name) }}
 {% endmacro %}

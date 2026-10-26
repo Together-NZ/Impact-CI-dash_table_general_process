@@ -18,6 +18,7 @@
         creative_descr,
         DATE(date) AS date,
         SAFE_CAST(conversions AS INT64) AS conversions,
-        'Pinterest' AS platform
+        'Pinterest' AS platform,
+           CAST(NULL AS INT64) AS follows
     FROM {{ source(source_name, table_name) }}
 {% endmacro %}

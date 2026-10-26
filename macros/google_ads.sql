@@ -14,7 +14,8 @@
            campaign_name,publisher, campaign_descr, 
             creative_descr,  -- Convert array to string
            date, conversions,
-           'Google Ads' AS platform
+           'Google Ads' AS platform,
+           CAST(NULL AS INT64) AS follows
 
     FROM {{ source(source_name, table_name) }}
 {% endmacro %}

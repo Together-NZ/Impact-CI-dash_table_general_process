@@ -29,8 +29,9 @@ SAFE_CAST(video_views AS INT64) AS video_views,
 SAFE_CAST(campaign_descr AS STRING) AS campaign_descr,
 SAFE_CAST(creative_descr AS STRING) AS creative_descr,
 SAFE_CAST(platform AS STRING) AS platform,
-CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands
-  FROM {{ source(source_name, table_name) }} 
+CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands,
+SAFE_CAST(JSON_VALUE(TO_JSON_STRING(source_rows), '$.follows') AS INT64) AS follows
+  FROM {{ source(source_name, table_name) }} AS source_rows
 WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%' AND campaign_name NOT IN (
   'CON030 - MULTI - Contact - Broadband - Product - Broadband Bundle Hero - 040520 - 150620',
   'CONTACT_0000_CON_TIKTOK CONTENT_JAN_2025_ELECTRICITY_',

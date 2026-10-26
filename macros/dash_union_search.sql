@@ -28,7 +28,8 @@ SAFE_CAST(video_views AS INT64) AS video_views,
 SAFE_CAST(campaign_descr AS STRING) AS campaign_descr,
 SAFE_CAST(creative_descr AS STRING) AS creative_descr,
 SAFE_CAST(platform AS STRING) AS platform,
-CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands
+CASE WHEN {{ sub_brands }} IS NOT NULL THEN {{ sub_brands }} ELSE NULL END AS sub_brands,
+CAST(NULL AS INT64) AS follows
 FROM {{ source(source_name, table_name) }} 
 WHERE LOWER(SAFE_CAST(campaign_name AS STRING)) NOT LIKE '%dnu%')
 {% endmacro %}
