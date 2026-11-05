@@ -27,16 +27,18 @@ class BarfootCampaignSelectionTests(unittest.TestCase):
                         (5, 'bnt_SALE_normal', 'SALE', 50),
                         (6, 'BNT_sale_0034', 'sale', 60),
                         (7, None, None, 70),
+                        (8, 'BNT000034_Barfoot&Thompson_Brand BT401_Meta_Social_Intent_Connect', 'Barfoot&Thompson', 80),
                     ])
                     rows = db.execute('WITH ' + ctes + ' SELECT id, campaign_name_selection, cost FROM manual_campaign_name_selection_mapping ORDER BY id').fetchall()
                 self.assertEqual(rows, [
                     (1, 'BNT_sale_0034', 10),
                     (2, 'bnt_sale_0035_extra', 20),
-                    (3, 'SALE', 30),
+                    (3, 'bnt_sale_0034_extra', 30),
                     (4, 'SALE', 40),
                     (5, 'SALE', 50),
                     (6, 'BNT_sale_0034', 60),
                     (7, None, 70),
+                    (8, 'BNT000034_Barfoot&Thompson_Brand BT401_Meta_Social_Intent_Connect', 80),
                 ])
                 self.assertIn('FROM manual_campaign_name_selection_mapping AS camb', sql)
 

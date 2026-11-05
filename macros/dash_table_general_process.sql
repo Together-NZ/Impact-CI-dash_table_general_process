@@ -24,7 +24,7 @@ manual_campaign_name_selection_mapping AS (
         cb.*,
         CASE
             WHEN LOWER(cb.campaign_name) LIKE '%bnt%'
-                 AND cb.campaign_name LIKE '%0034' THEN cb.campaign_name
+                 AND cb.campaign_name LIKE '%0034%' THEN cb.campaign_name
             WHEN LOWER(cb.campaign_name) LIKE '%bnt%'
                  AND cb.campaign_name LIKE '%0035%' THEN cb.campaign_name
             ELSE TRIM(COALESCE(dr.campaign_name_raw, cb.campaign_name_raw))

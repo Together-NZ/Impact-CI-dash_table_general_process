@@ -96,3 +96,9 @@ exception. All other dimensions and metrics retain their existing logic.
 Barfoot uses `dash_table_general_process_funnel`; no client-local override macro
 is needed. Pin the dashboard package to `v2.1.1-barfoot.1`, run `dbt deps`, then
 rebuild `dash_table` and `dash_union` in the Barfoot environment.
+
+## v2.1.1-barfoot.2: match 0034 anywhere in the campaign name
+
+Fixes the Barfoot-only 0034 exception to match anywhere in the full campaign
+name, including `BNT000034_Barfoot&Thompson_Brand BT401_Meta_Social_Intent_Connect`.
+The 0035 rule is unchanged. Both exceptions retain the full campaign name.
