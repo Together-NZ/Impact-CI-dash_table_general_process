@@ -82,3 +82,17 @@ Run the local propagation and regression tests with:
 python -m pip install -r requirements-test.txt
 python -m unittest discover -s tests -v
 ```
+
+## v2.1.1-barfoot.1: Barfoot & Thompson campaign selection exceptions
+
+Client-specific release on `release/barfoot-campaign-selection-v2.1.1-barfoot.1`.
+Only Barfoot should pin this tag. Both general processing macros preserve the
+full campaign name as `campaign_name_selection` when the campaign contains
+`bnt` (case-insensitive) and either ends with `0034` or contains `0035`. Other
+campaigns retain the existing case-normalized selection. The mapping is applied
+per campaign row so campaigns sharing a selection cannot inherit each other's
+exception. All other dimensions and metrics retain their existing logic.
+
+Barfoot uses `dash_table_general_process_funnel`; no client-local override macro
+is needed. Pin the dashboard package to `v2.1.1-barfoot.1`, run `dbt deps`, then
+rebuild `dash_table` and `dash_union` in the Barfoot environment.

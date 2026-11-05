@@ -19,8 +19,22 @@ duplicate_raw AS (
 deduplicate_raw AS (
        select * from duplicate_raw where row_number = 1
 ),
+manual_campaign_name_selection_mapping AS (
+    SELECT
+        cb.*,
+        CASE
+            WHEN LOWER(cb.campaign_name) LIKE '%bnt%'
+                 AND cb.campaign_name LIKE '%0034' THEN cb.campaign_name
+            WHEN LOWER(cb.campaign_name) LIKE '%bnt%'
+                 AND cb.campaign_name LIKE '%0035%' THEN cb.campaign_name
+            ELSE TRIM(COALESCE(dr.campaign_name_raw, cb.campaign_name_raw))
+        END AS campaign_name_selection
+    FROM campaign_base AS cb
+    LEFT JOIN deduplicate_raw AS dr
+        ON LOWER(dr.campaign_name_raw) = LOWER(cb.campaign_name_raw)
+),
 dash_table_final AS (
-SELECT camb.* EXCEPT(campaign_name_raw),
+SELECT camb.* EXCEPT(campaign_name_raw, campaign_name_selection),
 0 as metrics_value_per_conversion,
 NULL AS segments_conversion_action,
 NULL AS segments_conversion_action_category,
@@ -66,12 +80,7 @@ NULL AS device,
 NULL AS segments_slot,
 NULL AS _LATEST_DATE,
 NULL AS _DATA_DATE,
-trim(CASE WHEN 
-       lower(camb.campaign_name_raw) = lower(deduplicate_raw.campaign_name_raw) 
-       
-       THEN deduplicate_raw.campaign_name_raw
-       ELSE camb.campaign_name_raw
-END )AS campaign_name_selection,
+camb.campaign_name_selection,
 CASE WHEN 
        EXISTS(SELECT 1 FROM UNNEST(SPLIT(creative_name,'_'))  as a
        WHERE lower(a) in UNNEST(ARRAY['aud','dg','disp','native','pdooh','rmdisp','social','vid','vidod','yt']))
@@ -112,7 +121,7 @@ ELSE 'Wealth'
 END AS sub_brands,
 
 
- FROM campaign_base camb LEFT JOIN deduplicate_raw ON LOWER(deduplicate_raw.campaign_name_raw) = LOWER(camb.campaign_name_raw)
+ FROM manual_campaign_name_selection_mapping AS camb
 )
 SELECT * FROM dash_table_final
 {% endmacro %}
