@@ -82,3 +82,20 @@ Run the local propagation and regression tests with:
 python -m pip install -r requirements-test.txt
 python -m unittest discover -s tests -v
 ```
+
+## v2.1.1-summerset.1: Summerset union funnel mapping
+
+Summerset-specific release. Both `dash_union_search` and `dash_union_non_search`
+map Summerset campaigns to regions using inline CASE conditions. The rules
+include 40 NZ village/location pairs, region-name fallbacks, the three SUM244
+Special exceptions, and six SUM327 Victoria campaigns (ignoring whitespace
+variations). Unmatched Summerset campaigns become Others; other clients retain
+their existing funnel. Region labels use Hawkes Bay and Manawatu-Whanganui.
+
+The general, custom-funnel, and search dashboard processors retain v2.1.0
+behavior. Only the union macros apply these overrides. Pin Summerset to
+`v2.1.1-summerset.1`, run `dbt deps`, then rebuild `dash_union__nz` and
+`dash_union__au`. Barfoot keeps its separate package version.
+
+Validation: all 14 local tests passed. Live NZ/AU union rebuilds were verified
+against expected campaign/funnel groups, row counts, and media costs.
