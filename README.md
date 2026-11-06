@@ -106,3 +106,9 @@ Both union macros check all regional keywords before the National fallback.
 A campaign containing both National and Auckland now receives Auckland; a
 National-only campaign still receives National. Earlier Special, village/location,
 and Victoria conditions keep their existing precedence.
+
+## v2.1.1-summerset.3: Nelson and Stoke keyword aliases
+
+Both union macros map campaign names containing Nelson or Stoke to Nelson-Tasman
+at the regional fallback stage, before National. Existing Special, village/location,
+Victoria, and earlier regional rules retain their precedence.

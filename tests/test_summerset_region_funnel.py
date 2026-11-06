@@ -113,6 +113,12 @@ class SummersetRegionFunnelTests(unittest.TestCase):
             self.check_campaign('SUM244 | National | ' + region + ' | Traffic', region)
         self.check_campaign('SUM244 | National | Traffic', 'National')
 
+    def test_nelson_and_stoke_aliases(self):
+        for name in ('Nelson', 'Stoke', 'NELSON', 'STOKE'):
+            self.check_campaign('SUM244 | National | ' + name + ' | Traffic', 'Nelson-Tasman')
+        self.check_campaign('SUM244  |  | Digital Always On | 14 | Performance Max | Nelson', 'Nelson-Tasman')
+        self.check_campaign('OTHER_CLIENT_Stoke', 'awareness')
+
     def test_other_clients_unmatched_and_null_preserve_funnel(self):
         for campaign in ('OTHER_CLIENT_Whangarei', '', None):
             self.check_campaign(campaign, 'awareness')
