@@ -106,6 +106,13 @@ class SummersetRegionFunnelTests(unittest.TestCase):
         self.check_campaign('SUM244_Canterbury_Summerset Cambridge', 'Waikato')
         self.check_campaign('OTHER_CLIENT_Wellington', 'awareness')
 
+    def test_region_keywords_take_priority_over_national(self):
+        for region in ('Northland', 'Auckland', 'Bay of Plenty', 'Waikato', 'Hawkes Bay',
+                       'Gisborne', 'Taranaki', 'Manawatu-Whanganui', 'Wellington',
+                       'Marlborough', 'Nelson-Tasman', 'Canterbury', 'Otago'):
+            self.check_campaign('SUM244 | National | ' + region + ' | Traffic', region)
+        self.check_campaign('SUM244 | National | Traffic', 'National')
+
     def test_other_clients_unmatched_and_null_preserve_funnel(self):
         for campaign in ('OTHER_CLIENT_Whangarei', '', None):
             self.check_campaign(campaign, 'awareness')

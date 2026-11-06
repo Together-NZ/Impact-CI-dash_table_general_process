@@ -99,3 +99,10 @@ behavior. Only the union macros apply these overrides. Pin Summerset to
 
 Validation: all 14 local tests passed. Live NZ/AU union rebuilds were verified
 against expected campaign/funnel groups, row counts, and media costs.
+
+## v2.1.1-summerset.2: region keywords take priority over National
+
+Both union macros check all regional keywords before the National fallback.
+A campaign containing both National and Auckland now receives Auckland; a
+National-only campaign still receives National. Earlier Special, village/location,
+and Victoria conditions keep their existing precedence.

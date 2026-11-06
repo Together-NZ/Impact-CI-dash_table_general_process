@@ -180,7 +180,6 @@ summerset_funnel AS (
                 'SUM327 | Search | Cranbourne North | Generic',
                 'SUM327 | Search | Oakleigh South | Brand'
             ) THEN 'Victoria'
-            WHEN summerset_campaign_match LIKE '%national%' THEN 'National'
             WHEN summerset_campaign_match LIKE '%northland%' THEN 'Northland'
             WHEN summerset_campaign_match LIKE '%auckland%' THEN 'Auckland'
             WHEN summerset_campaign_match LIKE '%bay of plenty%' THEN 'Bay of Plenty'
@@ -194,6 +193,7 @@ summerset_funnel AS (
             WHEN summerset_campaign_match LIKE '%nelson tasman%' THEN 'Nelson-Tasman'
             WHEN summerset_campaign_match LIKE '%canterbury%' THEN 'Canterbury'
             WHEN summerset_campaign_match LIKE '%otago%' THEN 'Otago'
+            WHEN summerset_campaign_match LIKE '%national%' THEN 'National'
             ELSE 'Others'
         END AS funnel
     FROM summerset_campaign_text
